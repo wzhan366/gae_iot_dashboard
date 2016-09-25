@@ -142,60 +142,7 @@ class NewControlCommand(_BaseHandler):
             self.response.out.write(template.render(self.template_values))
 
 
-from bigquery import query_bigquery
-class BigqueryPage(_BaseHandler):
-    def get(self):
-        logging.info('NewControlCommand class requested')
-        sql = 'SELECT \
-                mac, \
-                year(timeStamp),\
-                month(timeStamp),\
-                day(timeStamp),\
-                hour(timeStamp),\
-                minute(timeStamp),\
-                second(timeStamp), \
-                temp,\
-                FROM\
-                  [spry-truck-132223:streaming_1.monitor_1]\
-                where day(timeStamp) = 17 and mac = '
-        # sql += "'" + '0013a20040e44261' + "'" + ' order by temp DESC'
-        query = query_bigquery(sql)
-        results = []
-        for row in query:
-            r = [field['v'] for field in row['f']]
-            # 2016-09-18 20:24:27
-            time = str(r[1]) + '-' + str(r[2]) + '-' + str(r[3]) + ' ' + str(r[4]) + ':' + str(r[5]) + ':' + str(r[6])
-            results.append([r[0], time, r[-1]])
-        self.template_values['bigquery'] = results
-        template = jinja_environment.get_template('bigquery.template')
-        self.response.out.write(template.render(self.template_values))
 
-    def post(self):
-        logging.info('NewControlCommand class requested')
-
-        d_name = self.request.get('device_name')
-        d_mac = self.request.get('device_mac')
-        date_b = self.request.get('beginDate')
-        date_e = self.request.get('endDate')
-        sort_by = self.request.get('sort')
-
-        sql = 'select mac, timeStamp, temp from [spry-truck-132223:streaming_1.monitor_1] where day(timeStamp) = 17 and '
-
-        # if d_name:
-        #     sql += ''
-        if d_mac:
-            sql += ' mac = ' + "'" + d_mac + "'"
-
-        if sort_by:
-            sql += ' order by timeStamp'
-        print '00000000000000our sql is ', sql
-        query = query_bigquery(sql)
-        results = []
-        for row in query:
-            results.append([field['v'] for field in row['f']])
-        self.template_values['home_stats'] = results
-        template = jinja_environment.get_template('bigquery.template')
-        self.response.out.write(template.render(self.template_values))
 
 class Admin(_BaseHandler):
     def get(self):
