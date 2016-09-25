@@ -1,0 +1,112 @@
+{% extends "base.template" %}
+{% block content %}
+
+  <section class="container">
+    <table class="table table-bordered">
+        <div>
+          <h2>Device Control</h2>
+        </div>
+        <tr>
+          <th>Device Id</th>
+          <th>Swtich Status</th>
+          <th>Device Info</th>
+          <th>Change</th>
+          <!-- <th>Action</th> -->
+        </tr>
+        <tr>
+      <form class="form-inline" method="post" action="/control">
+        <td>
+            <div class="col-sm-9">
+              <div class="form-group">
+                <input type="text" class="form-control" name="id" placeholder="1">
+              </div>
+            </div>
+        </td>
+        <td>
+            <div class="select-wrap" class="col-sm-9">
+              <select name="switch">
+                <option value=1>Yes</option>
+                <option value=0>No</option>
+              </select>
+            </div>
+        </td>
+        <td>
+            <div class="col-sm-9">
+              <div class="form-group">
+                <input type="text" class="form-control" name="info" placeholder="Lamp">
+              </div>
+            </div>
+        </td>
+        <td>
+            <button type="submit" class="btn btn-default" name="update" value=1>Update</button>
+            <button type="submit" class="btn btn-default" name="update" value=0>Delete</button>
+        </td>
+    </form>
+    </tr>
+</table>
+
+<div class = "row"  style="border-bottom: thick dotted " >
+    <p class="lead">
+        <ul>
+          <li>Digital device 1 is turn on, 0 is turn off.</li>
+          <li>Analog device in put is 0-100 percentage. </li>
+        </ul>
+    </p>
+</div>
+
+{% if denied_input == 'True' %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>You need to put a device id which is number type!</strong>
+    </div>
+{% endif %}
+
+
+    <!-- Content -->
+    <!-- Table -->
+    <table class="table table-bordered" >
+        <div>
+          <center><h2>Your devices status</h2></center>
+        </div>
+      <tr>
+        <th>Device Id</th>
+        <th>Swtich Status</th>
+        <th>Device Info</th>
+        <th>Change</th>
+        <!-- <th>Action</th> -->
+      </tr>
+      {% for a in events %}
+        <tr>
+              <td>{{ a.id_ }}</td>
+              <td>{{ a.switch }}</td>
+              <td>{{ a.info }}</td>
+              <td>
+              <form class="form-inline" method="post" action="/control">
+                    <div class="form-group">
+                        <input type="hidden" name="device_id" value = {{a.id_}} placeholder={{a.id_}}>
+                        <div class="select-wrap">
+                        <label >Swith to</label>
+                          <select name="device_switch">
+                            <option value=1>Yes</option>
+                            <option value=0>No</option>
+                          </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default" name="t_botton" value="1">Update</button>
+                    <label > Or </label>
+                    <button type="submit" class="btn btn-default" name="t_botton" value="0">Delete</button>
+                </form>
+              </td>
+        </tr>
+          {% endfor %}
+    </table>
+
+    {% if denied == 'True' %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Acess denied!</strong> You don't have the access to control this device!
+        </div>
+    {% endif %}
+  </section>
+
+{% endblock %}

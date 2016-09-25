@@ -1,0 +1,69 @@
+{% extends "base.template" %}
+{% block content %}
+<section class="achievements container">
+
+    <table class="table table-bordered">
+        <div>
+          <h2>User Acess Control</h2>
+        </div>
+        <tr>
+          <th>User email</th>
+          <th>Access Status</th>
+          <th>Change</th>
+        </tr>
+        <tr>
+    <form class="form-inline" method="post" action="/admin">
+            <td>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                      <input type="email" class="form-control" name="user_email" placeholder="Enter user email"></input>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                      <div class="select-wrap">
+                        <select name="verified">
+                          <option value="y">Yes</option>
+                          <option value="n">No</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" name = "h_button" value = '1'>Update</button>
+                        <button type="submit" class="btn btn-default" name = "h_button" value = '0'>Delete</button>
+                    </div>
+                </div>
+            </td>
+          </form>
+      </tr>
+  </table>
+
+
+
+      <!-- Content -->
+      <!-- panel -->
+      <!-- Table -->
+      <table class="table table-bordered">
+          <div>
+            <center><h2>User Display</h2></center>
+          </div>
+        <tr>
+          <th>User</th>
+          <th>Access</th>
+          <!-- <th>Action</th> -->
+        </tr>
+        {% for a in controller %}
+          <tr>
+                <td>{{ a.user_email }}</td>
+                <td>{{ a.verified }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+</section>
+{% endblock %}
