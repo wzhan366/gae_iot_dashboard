@@ -1,0 +1,59 @@
+{% extends "base.template" %}
+{% block content %}
+
+ <!-- Home Container -->
+    <!-- Content -->
+    <div class="container-fluid">
+        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2  col-sm-10 offset-sm-2 main">
+            <h3> <span class="glyphicon glyphicon-random" aria-hidden="true"></span> Real-time USB Unit Data </h3>
+
+            <div class="col-xs-6 col-sm-6 placeholder">
+                <a href="https://plot.ly/~Tianqi/7/" target="_blank" title="USB_Temperature over time" style="display: block; text-align: center;"><img src="https://plot.ly/~Tianqi/7.png" alt="USB_Temperature over time" width="200" height="200" class="img-fluid" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                <script data-plotly="Tianqi:7"  src="https://plot.ly/embed.js" async></script>
+                <h5> USB Unit Temperature Data </h5>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 placeholder">
+
+                <a href="https://plot.ly/~Tianqi/9/" target="_blank" title="USB_Brightness over time" style="display: block; text-align: center;"><img src="https://plot.ly/~Tianqi/9.png" alt="USB_Brightness over time" width="200" height="200" class="img-fluid" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                <script data-plotly="Tianqi:9"  src="https://plot.ly/embed.js" async></script>
+                <h5> USB Unit Brightness Data </h5>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 placeholder">
+
+                <a href="https://plot.ly/~Tianqi/8/" target="_blank" title="USB_Humidity over time" style="display: block; text-align: center;"><img src="https://plot.ly/~Tianqi/8.png" alt="USB_Humidity over time" width="200" height="200" class="img-fluid" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                <script data-plotly="Tianqi:8"  src="https://plot.ly/embed.js" async></script>
+                <h5> USB Unit Humidity Data </h5>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 placeholder">
+                <a href="https://plot.ly/~ian.zhang366/34/" target="_blank" title="Temperature/C vs Time" style="display: block; text-align: center;"><img src="https://plot.ly/~ian.zhang366/34.png" alt="Temperature/C vs Time" width="200" height="200" class="img-fluid" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                <script data-plotly="ian.zhang366:34"  src="https://plot.ly/embed.js" async></script>
+            </div>
+        </div>
+
+
+        <div class="table-responsive">
+            <h3><span class="glyphicon glyphicon-list-alt"></span> Device List</h3>
+            <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Device</th>
+                      <th>Switch</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {% for a in home_stats %}
+                  <tr>
+                      <td>{{ a.id_ }}</td>
+                      <td>{{ a.switch }}</td>
+                    </tr>
+                {% endfor %}
+                </<tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

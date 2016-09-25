@@ -1,0 +1,82 @@
+{% extends "base.template" %}
+{% block content %}
+<section class="achievements container">
+    <div class="row">
+          <h2>Search raw data</h2>
+    </div>
+
+      <form class="form-inline" method="post" action="/bigquery">
+        <div class="col-md-3">
+            <div class="form-group">
+              <label>Device Name</label>
+              <input type="text" class="form-control" name="device_name" placeholder="Enter Name"></input>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+              <label>Device Mac:</label>
+              <input type="text" class="form-control" name="device_mac" placeholder="Enter Mac"></input>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+              <label>Date Created:</label>
+              <input type="date" name="beginDate"></input>
+              <span>to</span>
+              <input type="date" name="endDate"></input>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+              <label>Sort by:</label>
+              <div class="select-wrap">
+                <select name="sort">
+                  <option value="name">Name</option>
+                  <option value="date">Date</option>
+                </select>
+              </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+      </form>
+
+
+      <div class="col-xs-9">
+        <h2>Your query results</h2>
+      </div>
+
+      <!-- Content -->
+      <!-- panel -->
+      <!-- Table -->
+      <table class="table table-bordered">
+        <tr>
+          <th>Mac</th>
+          <th>Date</th>
+          <th>Temperature</th>
+          <!-- <th>Action</th> -->
+        </tr>
+        {% for a in bigquery %}
+          <tr>
+                <td>{{ a[0] }}</td>
+                <td> <time>{{ a[1] }}</time></td>
+                <td>{{ a[2] }}</td>
+                <!-- without inline form
+                <td>
+
+                <form class="form-inline" method="post" action="/control">
+                      <div class="form-group">
+                          <label for="exampleInputName2">Swith to</label>
+                          <input type="text" class="form-control" name="device_switch" placeholder="0">
+                      </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+                </td>
+                -->
+          </tr>
+            {% endfor %}
+      </table>
+</section>
+{% endblock %}

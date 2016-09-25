@@ -1,0 +1,45 @@
+application: bigquery-app-engine
+version: iot-rpi-sqs-access
+module: default
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+instance_class: F2
+automatic_scaling:
+  min_idle_instances: 2
+  max_idle_instances: 5
+  min_pending_latency: 2s
+  max_pending_latency: 5s
+  max_concurrent_requests: 5
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /images
+  static_dir: images
+
+- url: /admin
+  script: main.app
+  login: admin
+
+- url: /profile
+  script: main.app
+  login: required
+
+- url: /control
+  script: main.app
+  login: required
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: latest
+- name: ssl
+  version: 2.7
+
+- name: jinja2
+  version: latest

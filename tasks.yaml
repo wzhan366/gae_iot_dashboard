@@ -1,0 +1,24 @@
+application: gaenuggets
+version: python-15-auth
+module: tasks
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+instance_class: B2
+manual_scaling:
+  instances: 2
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /images
+  static_dir: images
+
+- url: /tasks
+  script: tasks.app
+
+libraries:
+- name: webapp2
+  version: latest
