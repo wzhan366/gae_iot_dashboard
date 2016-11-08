@@ -50,7 +50,9 @@ Raspberry Pi.
     - Amazon serice library
   - Google Python Client
   - Google cloud SDK
+  
 ### Report
-  * This report gives more information of building this application.
+  * A report(word file) gives more information of building this application.
+  
   
  
